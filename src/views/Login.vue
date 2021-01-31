@@ -1,33 +1,35 @@
 <template>
-  <a-layout-content>
-    <a-row align="center">
-      <a-col :span="4" style="top: 300px">
+  <a-layout-content style="min-height: 100vh">
+    <a-row
+      align="middle"
+      type="flex"
+      justify="center"
+      style="min-height: 100vh"
+    >
+      <a-col :xs="20" :sm="16" :md="12" :lg="8" :xl="4" style="">
         <a-card>
           <h2 style="text-align: center">{{ projectname }}</h2>
           <p style="text-align: center">版本：{{ version }}</p>
-
-          <a-alert
-            v-if="iswrong"
-            type="error"
-            message="账户或密码错误"
-            banner
-          />
           <a-form
             :model="loginForm"
             :label-col="labelCol"
             :wrapper-col="wrapperCol"
           >
-            <a-form-item label="账户">
-              <a-input aria-placeholder="手机号、邮箱"></a-input>
-            </a-form-item>
-            <a-form-item label="密码">
+            <a-form-item label="账户" v-bind="validateInfos.username">
               <a-input
-                type="password"
                 aria-placeholder="手机号、邮箱"
+                v-model:value="loginForm.username"
               ></a-input>
             </a-form-item>
+            <a-form-item label="密码" v-bind="validateInfos.password">
+              <a-input-password
+                v-model:value="loginForm.password"
+              ></a-input-password>
+            </a-form-item>
             <a-form-item :wrapper-col="wrapperCol1">
-              <a-button type="primary" block>登录</a-button>
+              <a-button type="primary" shape="round" block @click="onSubmit"
+                >登录</a-button
+              >
             </a-form-item>
           </a-form>
         </a-card>
@@ -36,15 +38,81 @@
   </a-layout-content>
 </template>
 <script>
-import Common from "../common/common.vue";
+import Common from "../common/Common";
+import { reactive, toRaw } from "vue";
+import { useForm } from "@ant-design-vue/use";
+import axios from "axios";
+import Qs from "qs";
 export default {
+  setup() {
+    const data = reactive({
+      isWrong: false,
+    });
+    const loginForm = reactive({
+      username: "",
+      password: "",
+    });
+    const { resetFields, validate, validateInfos } = useForm(
+      loginForm,
+      reactive({
+        username: [
+          {
+            required: true,
+            message: "请输入用账户",
+          },
+        ],
+        password: [
+          {
+            required: true,
+            message: "请输入密码",
+          },
+        ],
+      })
+    );
+    const onSubmit = (e) => {
+      console.log(e);
+      e.preventDefault();
+      validate()
+        .then((res) => {
+          console.log(res, toRaw(loginForm));
+          axios
+            .post("/auth/login", Qs.stringify(loginForm))
+            .then((res) => {
+              res = res.data;
+              if (res.code == 200) {
+                Common.message.success("登录成功");
+              } else {
+                Common.message.error(res.message);
+              }
+              console.log(res);
+            })
+            .catch((err) => {
+              Common.message.error("登录信息格式错误");
+              console.error(err);
+            });
+        })
+        .catch((err) => {
+          Common.message.error("登录信息格式错误");
+          console.error(err);
+        });
+    };
+    const reset = () => {
+      resetFields();
+    };
+    return {
+      labelCol: { span: 6 },
+      wrapperCol: { span: 18 },
+      wrapperCol1: { span: 24 },
+      validateInfos,
+      onSubmit,
+      reset,
+      loginForm,
+      data,
+    };
+  },
   name: "Login",
   data() {
     return {
-      iswrong: true,
-      labelCol: { span: 4 },
-      wrapperCol: { span: 20 },
-      wrapperCol1: { span: 24 },
       projectname: Common.projectName,
       version: Common.version,
     };
