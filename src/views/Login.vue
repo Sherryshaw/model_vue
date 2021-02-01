@@ -42,7 +42,8 @@ import Common from "../common/Common";
 import { reactive, toRaw } from "vue";
 import { useForm } from "@ant-design-vue/use";
 // import axios from "axios";
-import api from "../common/Api"
+import api from "../common/Api";
+import store from "../store";
 export default {
   setup() {
     const loginForm = reactive({
@@ -68,15 +69,17 @@ export default {
     );
     const onSubmit = (e) => {
       e.preventDefault();
-      validate().then((res) => {
+      validate()
+        .then((res) => {
           console.log(res, toRaw(loginForm));
           api.login(loginForm).then((res) => {
-              console.log(res);
-              if (res != null) {
-                Common.message.success("登录成功");
-              }
-            })
-        }).catch((err) => {
+            console.log(res);
+            if (res != null) {
+              Common.message.success("登录成功");
+            }
+          });
+        })
+        .catch((err) => {
           Common.message.error("请检查输入信息");
           console.error(err);
         });
@@ -97,8 +100,8 @@ export default {
   name: "Login",
   data() {
     return {
-      projectname: Common.projectName,
-      version: Common.version,
+      projectname: store.state.projectName,
+      version: store.state.version,
     };
   },
 };
