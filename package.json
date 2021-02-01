@@ -1,6 +1,7 @@
 {
   "name": "frontend",
   "version": "0.1.0",
+  "author": "Tianhao",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve --port 8000",

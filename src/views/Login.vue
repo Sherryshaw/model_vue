@@ -41,13 +41,10 @@
 import Common from "../common/Common";
 import { reactive, toRaw } from "vue";
 import { useForm } from "@ant-design-vue/use";
-import axios from "axios";
-import Qs from "qs";
+// import axios from "axios";
+import api from "../common/Api"
 export default {
   setup() {
-    const data = reactive({
-      isWrong: false,
-    });
     const loginForm = reactive({
       username: "",
       password: "",
@@ -70,29 +67,17 @@ export default {
       })
     );
     const onSubmit = (e) => {
-      console.log(e);
       e.preventDefault();
-      validate()
-        .then((res) => {
+      validate().then((res) => {
           console.log(res, toRaw(loginForm));
-          axios
-            .post("/auth/login", Qs.stringify(loginForm))
-            .then((res) => {
-              res = res.data;
-              if (res.code == 200) {
-                Common.message.success("登录成功");
-              } else {
-                Common.message.error(res.message);
-              }
+          api.login(loginForm).then((res) => {
               console.log(res);
+              if (res != null) {
+                Common.message.success("登录成功");
+              }
             })
-            .catch((err) => {
-              Common.message.error("登录信息格式错误");
-              console.error(err);
-            });
-        })
-        .catch((err) => {
-          Common.message.error("登录信息格式错误");
+        }).catch((err) => {
+          Common.message.error("请检查输入信息");
           console.error(err);
         });
     };
@@ -107,7 +92,6 @@ export default {
       onSubmit,
       reset,
       loginForm,
-      data,
     };
   },
   name: "Login",

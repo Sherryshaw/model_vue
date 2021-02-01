@@ -1,12 +1,15 @@
 <script>
-import { message } from 'ant-design-vue';
-const projectName="系统名称";
-const version="1.0.0";
-const author="Tian Hao";
+import { message } from "ant-design-vue";
+import config from "../../package.json";
+import { createApp } from "vue";
+const app = createApp();
+const projectName = config.name;
+const version = config.version;
+const author = config.author;
 export default {
-    projectName,
-    version,
-    author,
-    message,
-}
+  projectName,
+  version,
+  author,
+  message,
+};
 </script>

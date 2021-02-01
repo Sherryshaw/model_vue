@@ -1,29 +1,49 @@
 <script>
 /****   http.js   ****/
 // 导入封装好的axios实例
-import axios from 'axios';
+import axios from "axios";
+import request from "../common/Request";
 
-const host="http://localhost:8080/projectname"
-
-const http ={
-    /**
-     * methods: 请求
-     * @param url 请求地址 
-     * @param params 请求参数
-     */
-    async get(url){
-        return axios.get(host+url)
-    },
-    async post(url,params){
-        return axios.post(host+url,params)
-    },
-    put(url,params){
-        return axios.put(host+url,params)
-    },
-    delete(url){
-        return axios.delete(host+url)
-    }
-}
+const http = {
+  /**
+   * methods: 请求
+   * @param url 请求地址
+   * @param params 请求参数
+   */
+  get(url, params) {
+    const config = {
+      method: "get",
+      url: url,
+    };
+    if (params) config.params = params;
+    return request(config);
+  },
+  post(url, params) {
+    console.log(params);
+    const config = {
+      method: "post",
+      url: url,
+    };
+    if (params) config.data = params;
+    return request(config);
+  },
+  put(url, params) {
+    const config = {
+      method: "put",
+      url: url,
+    };
+    if (params) config.params = params;
+    return request(config);
+  },
+  delete(url, params) {
+    const config = {
+      method: "delete",
+      url: url,
+    };
+    if (params) config.params = params;
+    return request(config);
+  },
+};
 //导出
-export default http
+export default http;
 </script>
