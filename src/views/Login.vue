@@ -41,11 +41,14 @@
 import Common from "../common/Common";
 import { reactive, toRaw } from "vue";
 import { useForm } from "@ant-design-vue/use";
+import { useRouter } from 'vue-router'
 // import axios from "axios";
 import api from "../common/Api";
 import store from "../store";
 export default {
   setup() {
+    
+    const router=useRouter();
     const loginForm = reactive({
       username: "",
       password: "",
@@ -75,7 +78,12 @@ export default {
           api.login(loginForm).then((res) => {
             console.log(res);
             if (res != null) {
-              Common.message.success("登录成功");
+              console.log(router.getRoutes())
+              router.push("/manager/xposed").finally(e=>{
+                console.log(e);
+              })
+              router.go(1);
+              console.log(router.getRoutes())
             }
           });
         })
@@ -103,6 +111,8 @@ export default {
       projectname: store.state.projectName,
       version: store.state.version,
     };
+  },
+  methods: {
   },
 };
 </script>

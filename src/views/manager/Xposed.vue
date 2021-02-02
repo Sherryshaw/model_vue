@@ -27,9 +27,9 @@
     </a-layout-sider>
 
     <a-layout>
-      <a-layout-header style="background: #fff">
+      <a-layout-header style="background: #fff; padding: 0px">
         <a-row type="flex" justify="end">
-          <a-col :span="2">
+          <a-col :span="1">
             <a-avatar
               style="color: #f56a00; backgroundcolor: #fde3cf"
               @click="showDrawer"
@@ -40,9 +40,8 @@
               placement="right"
               :closable="false"
               v-model:visible="visible"
-              :after-visible-change="afterVisibleChange"
             >
-              <a-button type="danger" block>登出</a-button>
+              <a-button type="danger" @click="logout" block>登出</a-button>
             </a-drawer>
           </a-col>
         </a-row>
@@ -70,6 +69,8 @@ import {
   MailOutlined,
 } from "@ant-design/icons-vue";
 import store from "../../store";
+import api from "../../common/Api";
+import { useRouter } from "vue-router";
 export default {
   components: {
     MenuFoldOutlined,
@@ -77,7 +78,18 @@ export default {
     PieChartOutlined,
     MailOutlined,
   },
-  setup() {},
+  setup() {
+    const router = useRouter();
+    const logout = () => {
+      api.logout().then(() => {
+        console.log(router);
+        router.push("/Login");
+      });
+    };
+    return {
+      logout,
+    };
+  },
   data() {
     return {
       projectName: store.state.projectName,

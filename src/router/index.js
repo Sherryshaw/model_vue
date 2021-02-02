@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
-import ManagerHome from '../views/manager/Home.vue'
+import Xposed from '../views/manager/Xposed.vue'
 import Login from '../views/Login.vue'
 
 const routes = [
@@ -18,19 +18,20 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
   },
   {
-    path:"/login",
-    name:"Login",
+    path: "/login",
+    name: "Login",
     component: Login
   },
   {
-    path:"/manager/home",
-    name:"Home",
-    component: ManagerHome
+    path: "/manager/xposed",
+    name: "Xposed",
+    component: Xposed
   }
 ]
 
 const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
+  mode: 'history',
+  history: createWebHistory("/"),
   routes
 })
 

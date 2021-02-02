@@ -3,11 +3,10 @@ import router from './router';
 import store from './store';
 import Antd from 'ant-design-vue';
 import 'ant-design-vue/dist/antd.css';
-// import Login from './views/Login.vue';
-import ManagerHome from './views/manager/Home'
+import App from './App.vue';
 import axios from 'axios';
 
-const app = createApp(ManagerHome)
+const app = createApp(App)
 app.use(store)
 app.use(router)
 app.use(Antd)
