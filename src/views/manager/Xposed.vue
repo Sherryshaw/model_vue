@@ -18,7 +18,7 @@
           <template #title>
             <span><MailOutlined /><span>操作2</span></span>
           </template>
-          <a-menu-item key="2">功能 1</a-menu-item>
+          <a-menu-item key="2" @click="toPageNotFound">功能 1</a-menu-item>
           <a-menu-item key="3">功能 2</a-menu-item>
           <a-menu-item key="4">功能 3</a-menu-item>
           <a-menu-item key="5">功能 4</a-menu-item>
@@ -83,11 +83,15 @@ export default {
     const logout = () => {
       api.logout().then(() => {
         console.log(router);
-        router.push("/Login");
+        router.push("/");
       });
+    };
+    const toPageNotFound = () => {
+      router.push("/Losadasdasgin");
     };
     return {
       logout,
+      toPageNotFound,
     };
   },
   data() {

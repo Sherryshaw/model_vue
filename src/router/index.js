@@ -1,11 +1,17 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
-import Xposed from '../views/manager/Xposed.vue'
+import Manager from '../views/manager/Xposed.vue'
 import Login from '../views/Login.vue'
+import pageNotFound from '../components/404.vue'
 
 const routes = [
   {
-    path: '/',
+    path: "/",
+    name: "Login",
+    component: Login
+  },
+  {
+    path: '/home',
     name: 'Home',
     component: Home
   },
@@ -18,21 +24,19 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
   },
   {
-    path: "/login",
-    name: "Login",
-    component: Login
-  },
-  {
-    path: "/manager/xposed",
-    name: "Xposed",
-    component: Xposed
+    path: "/manager",
+    name: "manager",
+    component: Manager,
+    children: []
+  }, {
+    path: '/404',
+    component: pageNotFound,
   }
 ]
 
 const router = createRouter({
   mode: 'history',
   history: createWebHistory("/"),
-  routes
+  routes,
 })
-
 export default router

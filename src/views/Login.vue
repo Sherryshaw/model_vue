@@ -41,14 +41,13 @@
 import Common from "../common/Common";
 import { reactive, toRaw } from "vue";
 import { useForm } from "@ant-design-vue/use";
-import { useRouter } from 'vue-router'
+import { useRouter } from "vue-router";
 // import axios from "axios";
 import api from "../common/Api";
 import store from "../store";
 export default {
   setup() {
-    
-    const router=useRouter();
+    const router = useRouter();
     const loginForm = reactive({
       username: "",
       password: "",
@@ -78,12 +77,10 @@ export default {
           api.login(loginForm).then((res) => {
             console.log(res);
             if (res != null) {
-              console.log(router.getRoutes())
-              router.push("/manager/xposed").finally(e=>{
-                console.log(e);
-              })
+              console.log(router.getRoutes());
+              router.push("/manager");
               router.go(1);
-              console.log(router.getRoutes())
+              console.log(router.getRoutes());
             }
           });
         })
@@ -112,7 +109,6 @@ export default {
       version: store.state.version,
     };
   },
-  methods: {
-  },
+  methods: {},
 };
 </script>
