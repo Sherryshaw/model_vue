@@ -5,8 +5,11 @@ import Antd from 'ant-design-vue';
 import 'ant-design-vue/dist/antd.css';
 import App from './App.vue';
 import axios from 'axios';
-import mavonEditor from 'mavon-editor';
-import 'mavon-editor/dist/css/index.css';
+import VueMarkdownEditor from '@kangc/v-md-editor';
+import '@kangc/v-md-editor/lib/style/base-editor.css';
+import vuepressTheme from '@kangc/v-md-editor/lib/theme/vuepress.js';
+import '@kangc/v-md-editor/lib/theme/style/vuepress.css';
+VueMarkdownEditor.use(vuepressTheme);
 
 //404页面配置
 router.beforeEach((to, from, next) => {
@@ -22,6 +25,6 @@ const app = createApp(App)
 app.use(store)
 app.use(router)
 app.use(Antd)
-app.use(mavonEditor)
+app.use(VueMarkdownEditor);
 axios.defaults.baseURL = '/projectname'
 app.mount('#app')
