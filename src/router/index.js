@@ -3,6 +3,7 @@ import Home from '../views/Home.vue'
 import Manager from '../views/manager/Xposed.vue'
 import Login from '../views/Login.vue'
 import pageNotFound from '../components/404.vue'
+import sub01 from '../views/manager/sub01.vue'
 
 const routes = [
   {
@@ -27,7 +28,13 @@ const routes = [
     path: "/manager",
     name: "manager",
     component: Manager,
-    children: []
+    children: [{
+      path:"/manager/sub01",
+      name:"Sub01",
+      components: {
+        content:sub01
+      }
+    }]
   }, {
     path: '/404',
     component: pageNotFound,

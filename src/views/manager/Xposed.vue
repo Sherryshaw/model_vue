@@ -13,12 +13,18 @@
         theme="light"
         :inline-collapsed="collapsed"
       >
-        <a-menu-item key="1"><MailOutlined /><span>操作1</span></a-menu-item>
+        <router-link to="/manager/sub01"
+          ><a-menu-item key="1"
+            ><MailOutlined /><span>操作1</span></a-menu-item
+          ></router-link
+        >
         <a-sub-menu key="sub1">
           <template #title>
             <span><MailOutlined /><span>操作2</span></span>
           </template>
-          <a-menu-item key="2" @click="toPageNotFound">功能 1</a-menu-item>
+          <router-link to="/sdsdsdsd"
+            ><a-menu-item key="2">功能 1</a-menu-item></router-link
+          >
           <a-menu-item key="3">功能 2</a-menu-item>
           <a-menu-item key="4">功能 3</a-menu-item>
           <a-menu-item key="5">功能 4</a-menu-item>
@@ -53,8 +59,9 @@
           background: '#fff',
           minHeight: '80vh',
         }"
-        >Content</a-layout-content
       >
+        <router-view name="content" />
+      </a-layout-content>
       <a-layout-footer style="text-align: center">
         <span>Model_Vue ©2021 Created by Tianhao</span>
       </a-layout-footer>
@@ -86,12 +93,8 @@ export default {
         router.push("/");
       });
     };
-    const toPageNotFound = () => {
-      router.push("/Losadasdasgin");
-    };
     return {
       logout,
-      toPageNotFound,
     };
   },
   data() {
