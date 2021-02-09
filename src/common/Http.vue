@@ -1,4 +1,9 @@
 <script>
+// Http.vue
+// @/common/Http.vue
+// 封装基本的get,post,put,delete请求
+// 无特殊情况不需要更改
+//
 /****   http.js   ****/
 // 导入封装好的axios实例
 import axios from "axios";

@@ -1,4 +1,10 @@
 <script>
+// Request.vue 
+// @/common/Request.vue
+// 封装axios请求,包含对于各种请求异常的处理
+// ** 需要根据后台接口设置baseurl
+// 
+
 /****   request.js   ****/
 // 导入axios
 import axios from "axios";

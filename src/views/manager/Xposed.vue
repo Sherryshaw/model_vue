@@ -1,3 +1,8 @@
+<!-- 
+xposed.vue
+@/views/manager/xposed.vue
+管理端页面框架
+-->
 <template>
   <a-layout style="min-height: 100vh">
     <a-layout-sider

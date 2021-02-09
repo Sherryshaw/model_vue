@@ -1,28 +1,23 @@
+// index.js
+// @/router/index.js
+// vue router配置文件
+// 存放页面path
+// 
+
+//导入
 import { createRouter, createWebHistory } from 'vue-router'
-import Home from '../views/Home.vue'
 import Manager from '../views/manager/Xposed.vue'
 import Login from '../views/Login.vue'
-import pageNotFound from '../components/404.vue'
+import pageNotFound from '../views/404.vue'
 import sub01 from '../views/manager/sub01.vue'
 
+// 定义routes 
+// 存放页面path,name,component
 const routes = [
   {
     path: "/",
     name: "Login",
     component: Login
-  },
-  {
-    path: '/home',
-    name: 'Home',
-    component: Home
-  },
-  {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
   },
   {
     path: "/manager",
@@ -40,10 +35,16 @@ const routes = [
     component: pageNotFound,
   }
 ]
+// 定义routes end
 
+// 定义router
+// 配置router相关设置
 const router = createRouter({
   mode: 'history',
   history: createWebHistory("/"),
   routes,
 })
+// 定义router end
+
+//导出
 export default router
